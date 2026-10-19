@@ -94,21 +94,26 @@
     </div>
 
     <section class="closing" id="closing" aria-labelledby="closing-title">
-      <h2 id="closing-title">Let’s build<br>a <span>cleaner future</span></h2>
-      <form id="closing-contact-form" class="contact-form contact-form--email" data-contact-form data-contact-mode="callback">
-        <div class="contact-email-field">
-          <input id="closing-contact-email" name="email" type="email" autocomplete="email" maxlength="254" aria-label="Email" placeholder="Your email" required />
-          <button type="submit">Send</button>
-        </div>
-        <input name="website" type="text" autocomplete="off" tabindex="-1" aria-hidden="true" hidden />
-        <output class="contact-form-status" role="status" hidden></output>
-      </form>
-      <nav class="closing-legal" aria-label="Legal">
-        <button type="button">Public offer</button>
-        <button type="button">Privacy policy</button>
-        <button type="button">Terms of use</button>
-        <button type="button">Cookies</button>
-      </nav>
+      <div class="closing-contact">
+        <h2 id="closing-title">Let’s build<br>a <span>cleaner future</span></h2>
+        <form id="closing-contact-form" class="contact-form contact-form--email" data-contact-form data-contact-mode="callback">
+          <div class="contact-email-field">
+            <input id="closing-contact-email" name="email" type="email" autocomplete="email" maxlength="254" aria-label="Email" placeholder="Your email" required />
+            <button type="submit">Send</button>
+          </div>
+          <input name="website" type="text" autocomplete="off" tabindex="-1" aria-hidden="true" hidden />
+          <output class="contact-form-status" role="status" hidden></output>
+        </form>
+      </div>
+      <div class="closing-links">
+        <h3 id="closing-links-title">Information</h3>
+        <nav class="closing-legal" aria-labelledby="closing-links-title">
+          <button type="button">Public offer</button>
+          <button type="button">Privacy policy</button>
+          <button type="button">Terms of use</button>
+          <button type="button">Cookies</button>
+        </nav>
+      </div>
     </section>
   </main>
 

@@ -1,4 +1,8 @@
-.closing{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.8fr);grid-template-rows:1fr auto;align-items:center;row-gap:clamp(32px,4vh,52px);column-gap:clamp(64px,9vw,170px);min-height:62vh;padding:clamp(40px,6vh,72px) 5vw clamp(28px,4vh,48px);background:rgba(0,0,0,.58);backdrop-filter:blur(80px);-webkit-backdrop-filter:blur(80px);border:0;color:#f2ede1}
+.closing{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(240px,.8fr);grid-template-rows:auto;align-items:center;gap:clamp(32px,4vh,52px) clamp(64px,9vw,170px);min-height:62vh;padding:clamp(40px,6vh,72px) 5vw clamp(28px,4vh,48px);background:rgba(0,0,0,.58);backdrop-filter:blur(80px);-webkit-backdrop-filter:blur(80px);border:0;color:#f2ede1}
+.closing-contact{display:grid;justify-items:start;gap:clamp(28px,3vh,40px);min-width:0}
+.closing-contact .contact-form{max-width:600px}
+.closing-links{display:grid;gap:24px;justify-self:end;width:min(100%,260px)}
+.closing-links h3{margin:0;font:400 32px/1.1 Instrument,Georgia,serif;letter-spacing:-.025em}
 .closing h2{font-family:Instrument,Georgia,serif;font-size:clamp(80px,8.5vw,160px);font-weight:400;line-height:.94;letter-spacing:-.045em;margin:0}
 .closing h2 span{color:#dce6c9;letter-spacing:-.045em}
 .contact-form{width:100%;margin:0;font-family:Manrope,Arial,sans-serif}
@@ -20,7 +24,7 @@
 .contact-form--email button[type=submit]{min-width:88px;min-height:52px;padding:12px 22px}
 .contact-email-field:focus-within{outline:2px solid #e7d3af;outline-offset:4px}
 .contact-form--email input:focus-visible,.contact-form--email button:focus-visible{outline:none}
-.closing-legal{grid-column:1/-1;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:16px 34px}
+.closing-legal{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
 .closing-legal button{padding:8px 0;border:0;background:transparent;color:#f1ecdf;font:400 14px/1.5 Manrope,Arial,sans-serif;opacity:.7}
 .closing-legal button:hover,.closing-legal button:focus-visible{opacity:1}
 .closing-legal button:focus-visible{outline:2px solid #e7d3af;outline-offset:5px}
