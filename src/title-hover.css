@@ -1,0 +1,69 @@
+.title-hover {
+  position: relative;
+  isolation: isolate;
+  --title-hover-x: 0px;
+  --title-hover-y: 0px;
+  --title-hover-amount: 0;
+  --title-hover-radius: 320px;
+  --title-hover-blur: 1;
+  --title-hover-blur-size: 16px;
+  --title-hover-inner: 16%;
+  --title-hover-middle: 58%;
+  --title-hover-glow: .75;
+  --title-hover-glow-size: 22px;
+  --title-hover-glow-color: #fff1d4;
+  --title-hover-shift-x: 0px;
+  --title-hover-shift-y: 0px;
+}
+
+.title-hover > .title-hover__sharp,
+.title-hover > .title-hover__blur,
+.title-hover > .title-hover__glow {
+  display: block;
+  color: inherit;
+}
+
+.title-hover > .title-hover__sharp {
+  mask-image: radial-gradient(
+    circle var(--title-hover-radius) at var(--title-hover-x) var(--title-hover-y),
+    rgb(0 0 0 / calc(1 - var(--title-hover-amount) * var(--title-hover-blur))) var(--title-hover-inner),
+    rgb(0 0 0 / calc(1 - var(--title-hover-amount) * var(--title-hover-blur) * .5)) var(--title-hover-middle),
+    #000 100%
+  );
+}
+
+.title-hover > .title-hover__blur,
+.title-hover > .title-hover__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  transform: translate(var(--title-hover-shift-x), var(--title-hover-shift-y));
+  mask-image: radial-gradient(
+    circle var(--title-hover-radius) at var(--title-hover-x) var(--title-hover-y),
+    #000 var(--title-hover-inner),
+    rgb(0 0 0 / .5) var(--title-hover-middle),
+    transparent 100%
+  );
+}
+
+.title-hover > .title-hover__blur {
+  filter: blur(var(--title-hover-blur-size));
+  opacity: calc(var(--title-hover-amount) * var(--title-hover-blur));
+}
+
+.title-hover > .title-hover__glow {
+  color: var(--title-hover-glow-color);
+  filter: blur(var(--title-hover-glow-size));
+  text-shadow: 0 0 2px var(--title-hover-glow-color);
+  mix-blend-mode: screen;
+  opacity: clamp(0, calc(var(--title-hover-amount) * var(--title-hover-glow) * .85), 1);
+}
+
+.webgl-title-ready .hero-copy h1 > .title-hover__glow { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .title-hover > .title-hover__sharp { mask-image: none; }
+  .title-hover > .title-hover__blur,
+  .title-hover > .title-hover__glow { display: none; }
+}

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" class="is-loading">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#16140f" />
+  <style>
+    html.is-loading{overflow:hidden}
+    .preloader{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:#141711;color:#f2ede1;font-family:Manrope,Arial,sans-serif;transition:opacity .55s ease,visibility .55s;opacity:1;visibility:visible}
+    .preloader[hidden]{display:none!important}
+    .preloader.ready{opacity:0;visibility:hidden;pointer-events:none}
+    .preloader__content{width:220px;text-align:center}
+    .preloader__brand{display:flex;align-items:center;justify-content:center;gap:10px;font-size:32px;letter-spacing:-1.4px;font-weight:700;line-height:1}
+    .preloader__brand svg{width:58px;height:58px;flex-shrink:0}
+    .preloader__track{height:2px;width:180px;margin:30px auto 16px;overflow:hidden;border-radius:2px;background:#f2ede126}
+    .preloader__fill{display:block;height:100%;background:#e7d3af;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+    .preloader__percent{display:block;font-size:14px;line-height:1.5;font-weight:400;font-variant-numeric:tabular-nums;color:#e5ddcc}
+    body[data-scene-editor="hidden"] .scene-controls{display:none!important}
+    @media(prefers-reduced-motion:reduce){.preloader,.preloader__fill{transition:none}}
+  </style>
+  <link rel="preload" href="/assets/fonts/manrope-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin />
+  <meta name="description" content="A journey from living nature to solar energy. Explore the VERDA ENERGY solar garden." />
+  <title>VERDA ENERGY — Nature moves us.</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%23232c26'/%3E%3Cpath d='M10 12L24 37L38 12H30L24 24L18 12Z' fill='%23c3d8a5'/%3E%3C/svg%3E" />
+</head>
+<body class="hero-active" data-scene-editor="hidden">
+  <div class="preloader" id="load-status" role="status" aria-label="Loading VERDA">
+    <div class="preloader__content">
+      <div class="preloader__brand"><svg viewBox="0 0 42 42" fill="none" aria-hidden="true"><path d="M8 8h9l12 23h-9L8 8Z" fill="currentColor"/><path d="m26 8-5 9 5 9L36 8H26Z" fill="currentColor"/></svg><span>VERDA</span></div>
+      <div class="preloader__track" role="progressbar" aria-label="Loading scene" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="preloader__fill"></span></div>
+      <span class="preloader__percent" id="load-percent" aria-hidden="true">0%</span>
+    </div>
+  </div>
+  <a class="skip-link" href="#closing" data-preloader-inert inert>Skip the 3D journey</a>
+  <div class="stage" id="stage" aria-hidden="true"><canvas id="scene"></canvas><div class="stage-grain"></div><div class="stage-shade"></div></div>
+
+  <header class="site-header" data-preloader-inert inert>
+    <a href="#origin" class="brand" aria-label="VERDA home" data-progress="0">
+      <svg class="brand-mark" viewBox="0 0 42 42" fill="none" aria-hidden="true"><path d="M8 8h9l12 23h-9L8 8Z" fill="currentColor"/><path d="m26 8-5 9 5 9L36 8H26Z" fill="currentColor"/></svg>
+      <span>VERDA</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">Menu</button>
+    <nav id="main-navigation" aria-label="Main navigation"><a class="nav-link active" href="#origin" data-progress="0">Our nature</a><a class="nav-link" href="#garden" data-progress="0.52">The energy</a><a class="nav-link" href="#garden" data-progress="1.26">Our impact</a><button class="mobile-contact" type="button" data-contact>Let’s talk</button></nav>
+    <button class="contact-button" data-contact>Let’s talk</button>
+  </header>
+
+  <main data-preloader-inert aria-busy="true" inert>
+    <div class="journey" id="journey">
+      <section class="story-copy hero-copy" id="origin" aria-labelledby="hero-title">
+        <p class="hero-kicker">THE NATURAL WAY FORWARD</p>
+        <h1 id="hero-title"><span class="hero-title-line">POWERED</span> <span class="hero-title-line">BY NATURE</span></h1>
+        <div class="hero-grid-note hero-grid-note--left">
+          <p class="hero-note-heading">LESS EXTRACTION<br>MORE POSSIBILITY</p>
+          <p>We see energy where nature<br>is already in motion.</p>
+        </div>
+        <div class="hero-grid-note hero-grid-note--right">
+          <p class="hero-note-heading">SUN. WIND. LIFE</p>
+          <p>Different forces.<br>One shared future.</p>
+        </div>
+        <p class="hero-description">We bring solar power and the force of wind together to shape a cleaner energy future, with nature at the heart of every possibility.</p>
+        <p class="hero-edition">RENEWABLE BY NATURE<br><span>Progress by design.</span></p>
+      </section>
+      <section class="story-copy garden-intro-copy" id="garden-intro" aria-labelledby="garden-intro-title" inert>
+        <h2 id="garden-intro-title">Energy in harmony</h2>
+        <p>Sunlight becomes clean power, while the landscape stays alive. Our solar garden brings energy and nature into balance.</p>
+      </section>
+      <section class="story-copy garden-copy" id="garden" aria-labelledby="garden-title">
+        <h2 id="garden-title">A natural kind of power</h2>
+        <p>Built to turn sunlight into clean power, our solar panels deliver efficient energy that works in harmony with the natural world.</p>
+      </section>
+      <aside class="solar-specs" aria-label="Solar panel specifications" inert>
+        <article class="solar-spec-card" data-panel-anchor="power">
+          <h3>Peak power</h3>
+          <p class="solar-spec-card__value">580<span>W</span></p>
+          <p class="solar-spec-card__description">Power at full sun</p>
+        </article>
+        <article class="solar-spec-card" data-panel-anchor="efficiency">
+          <h3>Efficiency</h3>
+          <p class="solar-spec-card__value">23.2<span>%</span></p>
+          <p class="solar-spec-card__description">More from every ray</p>
+        </article>
+        <article class="solar-spec-card" data-panel-anchor="yield">
+          <h3>Daily output</h3>
+          <p class="solar-spec-card__value">2.4<span>kWh</span></p>
+          <p class="solar-spec-card__description">Clean power every day</p>
+          <svg class="solar-spec-card__sparkline" viewBox="0 0 168 46" fill="none" aria-hidden="true" focusable="false">
+            <defs><linearGradient id="solar-yield-fill" x1="84" y1="6" x2="84" y2="46" gradientUnits="userSpaceOnUse"><stop stop-color="#e5efca" stop-opacity=".22"/><stop offset="1" stop-color="#e5efca" stop-opacity="0"/></linearGradient></defs>
+            <path d="M1 39C12 39 13 37 23 36C34 35 36 31 46 29C56 27 58 28 68 21C78 14 81 17 91 11C101 5 105 8 114 6C123 4 129 13 138 11C148 9 153 14 167 10V46H1Z" fill="url(#solar-yield-fill)"/>
+            <path d="M1 39C12 39 13 37 23 36C34 35 36 31 46 29C56 27 58 28 68 21C78 14 81 17 91 11C101 5 105 8 114 6C123 4 129 13 138 11C148 9 153 14 167 10" stroke="#e5efca" stroke-width="1.7" stroke-linecap="round"/>
+          </svg>
+        </article>
+      </aside>
+    </div>
+
+    <section class="closing" id="closing" aria-labelledby="closing-title">
+      <h2 id="closing-title">Let’s build<br>a <span>cleaner future</span></h2>
+      <form id="closing-contact-form" class="contact-form contact-form--email" data-contact-form data-contact-mode="callback">
+        <div class="contact-email-field">
+          <input id="closing-contact-email" name="email" type="email" autocomplete="email" maxlength="254" aria-label="Email" placeholder="Your email" required />
+          <button type="submit">Send</button>
+        </div>
+        <input name="website" type="text" autocomplete="off" tabindex="-1" aria-hidden="true" hidden />
+        <output class="contact-form-status" role="status" hidden></output>
+      </form>
+      <nav class="closing-legal" aria-label="Legal">
+        <button type="button">Public offer</button>
+        <button type="button">Privacy policy</button>
+        <button type="button">Terms of use</button>
+        <button type="button">Cookies</button>
+      </nav>
+    </section>
+  </main>
+
+  <div class="fallback-note" id="fallback-note" role="status" hidden>The 3D view is unavailable. Explore the story below.</div>
+
+  <dialog id="contact-dialog" aria-labelledby="contact-title">
+    <button class="dialog-close" type="button" aria-label="Close contact form">×</button>
+    <h2 id="contact-title">Let’s talk</h2>
+    <form id="contact-form" class="contact-form" data-contact-form>
+      <label for="dialog-contact-name">Name<input id="dialog-contact-name" name="name" autocomplete="name" maxlength="120" required /></label>
+      <label for="dialog-contact-email">Email<input id="dialog-contact-email" name="email" type="email" autocomplete="email" maxlength="254" required /></label>
+      <label for="dialog-contact-message">Message<textarea id="dialog-contact-message" name="message" rows="4" maxlength="4000" required></textarea></label>
+      <input name="website" type="text" autocomplete="off" tabindex="-1" aria-hidden="true" hidden />
+      <div class="contact-form-actions"><button type="submit" id="submit-brief">Send message</button><button type="button" class="contact-inbox-button" data-inbox-open hidden>Messages</button></div>
+      <output class="contact-form-status" id="form-status" role="status" hidden></output>
+    </form>
+    <div class="dialog-preferences"><span>Animation</span><button id="motion-toggle" type="button" aria-pressed="false" aria-label="Pause ambient animation"><span class="motion-symbol" aria-hidden="true">Ⅱ</span><span id="motion-label">Motion on</span></button></div>
+  </dialog>
+  <dialog id="contact-inbox" aria-labelledby="contact-inbox-title">
+    <button class="dialog-close" type="button" data-inbox-close aria-label="Close messages">×</button>
+    <h2 id="contact-inbox-title">Messages</h2>
+    <div data-inbox-messages></div>
+    <button type="button" class="contact-inbox-more" data-inbox-more hidden>Load more</button>
+    <p class="contact-inbox-status" data-inbox-status role="status" hidden></p>
+  </dialog>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

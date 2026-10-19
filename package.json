@@ -1,0 +1,27 @@
+{
+  "name": "verda-energy",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "build:vercel": "node scripts/build.mjs",
+    "check": "node scripts/check-scene.mjs",
+    "check:controls": "node scripts/check-controls.mjs",
+    "check:mounts": "node scripts/check-hero-decorations.mjs",
+    "check:shared": "node scripts/check-shared-settings.mjs",
+    "check:contact": "node scripts/check-contact-api.mjs",
+    "check:reveal": "node scripts/check-solar-specs.mjs",
+    "dev": "vite --host 127.0.0.1",
+    "build": "node scripts/build.mjs",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@vercel/blob": "2.8.2",
+    "meshoptimizer": "0.25.0",
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "vite": "7.1.12"
+  }
+}

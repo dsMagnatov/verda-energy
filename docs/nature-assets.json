@@ -1,0 +1,421 @@
+{
+  "downloadedOn": "2026-10-19",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "totalAssetBytes": 6883904,
+  "loader": "THREE.GLTFLoader; no Draco, KTX2, or custom extensions needed",
+  "geometryPlacement": "Clone mesh.geometry; discard original node translations. For floating rock geometry.center(). For plants center X/Z and translate minimum Y to zero. Keep the authored uv attribute.",
+  "assets": [
+    {
+      "id": "rock_moss_set_01",
+      "authors": {
+        "Kless Gyzen": "All"
+      },
+      "assetUrl": "https://polyhaven.com/a/rock_moss_set_01",
+      "gltfUrl": "/assets/nature/rock_moss_set_01/rock_moss_set_01_2k.gltf",
+      "suggestedMesh": "rock_moss_set_01_rock04",
+      "suggestedMeshReason": "Tall irregular boulder, dimensions 2.128 x 1.768 x 1.965; rock03 is a rounder alternative.",
+      "material": {
+        "doubleSided": true,
+        "name": "rock_moss_set_01",
+        "normalTexture": {
+          "index": 0
+        },
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 1
+          },
+          "metallicFactor": 0,
+          "metallicRoughnessTexture": {
+            "index": 2
+          }
+        }
+      },
+      "alphaMapUrl": null,
+      "meshes": [
+        {
+          "name": "rock_moss_set_01_rock01",
+          "vertices": 6078,
+          "triangles": 11000,
+          "min": [
+            -1.114021,
+            -0.656569,
+            -1.70104
+          ],
+          "max": [
+            1.123611,
+            0.816129,
+            1.667764
+          ],
+          "dimensions": [
+            2.237632,
+            1.472698,
+            3.368804
+          ],
+          "center": [
+            0.004795,
+            0.07978,
+            -0.016638
+          ],
+          "originalTranslation": [
+            -2.799999952316284,
+            0,
+            -2.122781276702881
+          ],
+          "attributes": [
+            "POSITION",
+            "NORMAL",
+            "TEXCOORD_0"
+          ]
+        },
+        {
+          "name": "rock_moss_set_01_rock02",
+          "vertices": 6192,
+          "triangles": 10996,
+          "min": [
+            -1.273055,
+            -0.465619,
+            -1.644414
+          ],
+          "max": [
+            1.382326,
+            0.796372,
+            1.619306
+          ],
+          "dimensions": [
+            2.655381,
+            1.261991,
+            3.26372
+          ],
+          "center": [
+            0.054635,
+            0.165376,
+            -0.012554
+          ],
+          "originalTranslation": [
+            0,
+            0,
+            -2.122781276702881
+          ],
+          "attributes": [
+            "POSITION",
+            "NORMAL",
+            "TEXCOORD_0"
+          ]
+        },
+        {
+          "name": "rock_moss_set_01_rock03",
+          "vertices": 2741,
+          "triangles": 5000,
+          "min": [
+            -1.018,
+            -0.410872,
+            -1.02362
+          ],
+          "max": [
+            1.090583,
+            0.688822,
+            1.055966
+          ],
+          "dimensions": [
+            2.108583,
+            1.099694,
+            2.079586
+          ],
+          "center": [
+            0.036292,
+            0.138975,
+            0.016173
+          ],
+          "originalTranslation": [
+            3,
+            0,
+            -2.122781276702881
+          ],
+          "attributes": [
+            "POSITION",
+            "NORMAL",
+            "TEXCOORD_0"
+          ]
+        },
+        {
+          "name": "rock_moss_set_01_rock04",
+          "vertices": 5691,
+          "triangles": 10589,
+          "min": [
+            -0.950279,
+            -0.660971,
+            -0.887419
+          ],
+          "max": [
+            1.177351,
+            1.107349,
+            1.077322
+          ],
+          "dimensions": [
+            2.127629,
+            1.76832,
+            1.964741
+          ],
+          "center": [
+            0.113536,
+            0.223189,
+            0.094952
+          ],
+          "originalTranslation": [
+            -2.700000047683716,
+            0,
+            1.5772186517715454
+          ],
+          "attributes": [
+            "POSITION",
+            "NORMAL",
+            "TEXCOORD_0"
+          ]
+        },
+        {
+          "name": "rock_moss_set_01_rock05",
+          "vertices": 8538,
+          "triangles": 16548,
+          "min": [
+            -0.860668,
+            -0.572554,
+            -1.350939
+          ],
+          "max": [
+            0.956655,
+            0.632896,
+            1.647725
+          ],
+          "dimensions": [
+            1.817323,
+            1.205451,
+            2.998664
+          ],
+          "center": [
+            0.047994,
+            0.030171,
+            0.148393
+          ],
+          "originalTranslation": [
+            0.15000000596046448,
+            0,
+            1.4772186279296875
+          ],
+          "attributes": [
+            "POSITION",
+            "NORMAL",
+            "TEXCOORD_0"
+          ]
+        },
+        {
+          "name": "rock_moss_set_01_rock06",
+          "vertices": 4748,
+          "triangles": 8994,
+          "min": [
+            -1.200777,
+            -0.528057,
+            -1.480146
+          ],
+          "max": [
+            0.925205,
+            0.733796,
+            1.277157
+          ],
+          "dimensions": [
+            2.125982,
+            1.261853,
+            2.757303
+          ],
+          "center": [
+            -0.137786,
+            0.10287,
+            -0.101495
+          ],
+          "originalTranslation": [
+            2.799999952316284,
+            0,
+            1.5772186517715454
+          ],
+          "attributes": [
+            "POSITION",
+            "NORMAL",
+            "TEXCOORD_0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fern_02",
+      "authors": {
+        "Rob Tuytel": "scanning",
+        "Rico Cilliers": "modeling"
+      },
+      "assetUrl": "https://polyhaven.com/a/fern_02",
+      "gltfUrl": "/assets/nature/fern_02/fern_02_2k.gltf",
+      "suggestedMesh": "fern_02_b",
+      "suggestedMeshReason": "Broadest, tallest clump for the hero; a and d are compact variants.",
+      "material": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "MASK",
+        "doubleSided": true,
+        "name": "fern_02",
+        "normalTexture": {
+          "index": 0
+        },
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 1
+          },
+          "metallicFactor": 0,
+          "metallicRoughnessTexture": {
+            "index": 2
+          }
+        }
+      },
+      "alphaMapUrl": "/assets/nature/fern_02/textures/fern_02_alpha_2k.png",
+      "meshes": [
+        {
+          "name": "fern_02_b",
+          "vertices": 1660,
+          "triangles": 2384,
+          "min": [
+            -0.528143,
+            -0.03051,
+            -0.421874
+          ],
+          "max": [
+            0.461605,
+            0.397184,
+            0.471815
+          ],
+          "dimensions": [
+            0.989747,
+            0.427695,
+            0.89369
+          ],
+          "center": [
+            -0.033269,
+            0.183337,
+            0.02497
+          ],
+          "originalTranslation": [
+            0,
+            0,
+            0
+          ],
+          "attributes": [
+            "POSITION",
+            "NORMAL",
+            "TEXCOORD_0"
+          ]
+        },
+        {
+          "name": "fern_02_c",
+          "vertices": 1568,
+          "triangles": 2248,
+          "min": [
+            -0.42994,
+            -0.028774,
+            -0.417282
+          ],
+          "max": [
+            0.444386,
+            0.320247,
+            0.347944
+          ],
+          "dimensions": [
+            0.874326,
+            0.34902,
+            0.765226
+          ],
+          "center": [
+            0.007223,
+            0.145737,
+            -0.034669
+          ],
+          "originalTranslation": [
+            1.0000009536743164,
+            0,
+            0
+          ],
+          "attributes": [
+            "POSITION",
+            "NORMAL",
+            "TEXCOORD_0"
+          ]
+        },
+        {
+          "name": "fern_02_a",
+          "vertices": 544,
+          "triangles": 784,
+          "min": [
+            -0.297657,
+            -0.028774,
+            -0.311268
+          ],
+          "max": [
+            0.254283,
+            0.25803,
+            0.302153
+          ],
+          "dimensions": [
+            0.551941,
+            0.286804,
+            0.613421
+          ],
+          "center": [
+            -0.021687,
+            0.114628,
+            -0.004558
+          ],
+          "originalTranslation": [
+            0,
+            0,
+            1.0000001192092896
+          ],
+          "attributes": [
+            "POSITION",
+            "NORMAL",
+            "TEXCOORD_0"
+          ]
+        },
+        {
+          "name": "fern_02_d",
+          "vertices": 565,
+          "triangles": 816,
+          "min": [
+            -0.29078,
+            -0.013579,
+            -0.352137
+          ],
+          "max": [
+            0.282002,
+            0.199509,
+            0.241142
+          ],
+          "dimensions": [
+            0.572782,
+            0.213088,
+            0.593278
+          ],
+          "center": [
+            -0.004389,
+            0.092965,
+            -0.055497
+          ],
+          "originalTranslation": [
+            1,
+            0,
+            0.9999995827674866
+          ],
+          "attributes": [
+            "POSITION",
+            "NORMAL",
+            "TEXCOORD_0"
+          ]
+        }
+      ]
+    }
+  ]
+}

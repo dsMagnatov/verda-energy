@@ -1,0 +1,17 @@
+Dark Rock — Poly Haven
+Source: https://polyhaven.com/a/dark_rock
+Author: Amal Kumar
+License: CC0 1.0 Universal (https://polyhaven.com/license)
+Metadata verified via https://api.polyhaven.com/info/dark_rock and /files/dark_rock on 2026-10-19.
+
+Files:
+- dark_rock_diff_2k.jpg: 2048 x 2048 diffuse/albedo, use SRGBColorSpace
+- dark_rock_nor_gl_2k.jpg: 2048 x 2048 OpenGL tangent-space normal, use NoColorSpace
+- dark_rock_rough_1k.jpg: 1024 x 1024 roughness, use NoColorSpace
+- dark_rock_disp_2k.jpg: 2048 x 2048 displacement, use NoColorSpace
+
+All downloads verified against MD5 supplied by Poly Haven's files API.
+Total image payload: 7,250,672 bytes (6.91 MiB).
+The JPG files were chosen for practical website download size. This is a tileable PBR material, not a rock model.
+Use repeating UVs or triplanar projection on a custom rock mesh; displacement needs sufficiently subdivided geometry.
+Retain this attribution file with redistributed assets, although CC0 does not require attribution.

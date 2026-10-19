@@ -1,0 +1,99 @@
+[
+  {
+    "id": "rock_moss_set_01",
+    "title": "Rock Moss Set 01",
+    "authors": {
+      "Kless Gyzen": "All"
+    },
+    "assetUrl": "https://polyhaven.com/a/rock_moss_set_01",
+    "infoUrl": "https://api.polyhaven.com/info/rock_moss_set_01",
+    "manifestUrl": "https://api.polyhaven.com/files/rock_moss_set_01",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "resolution": "2k",
+    "files": [
+      {
+        "path": "public/assets/nature/rock_moss_set_01/rock_moss_set_01_2k.gltf",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/rock_moss_set_01/rock_moss_set_01_2k.gltf",
+        "bytes": 9987,
+        "md5": "c45cebb55c848a11233126f691557ca0"
+      },
+      {
+        "path": "public/assets/nature/rock_moss_set_01/rock_moss_set_01.bin",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/rock_moss_set_01/rock_moss_set_01.bin",
+        "bytes": 1466380,
+        "md5": "207a51c9f56d34732e9814bbf9cc07b1"
+      },
+      {
+        "path": "public/assets/nature/rock_moss_set_01/textures/rock_moss_set_01_diff_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/rock_moss_set_01/rock_moss_set_01_diff_2k.jpg",
+        "bytes": 649415,
+        "md5": "d3e1292c9e34bd6b4a236698a1b41290"
+      },
+      {
+        "path": "public/assets/nature/rock_moss_set_01/textures/rock_moss_set_01_nor_gl_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/rock_moss_set_01/rock_moss_set_01_nor_gl_2k.jpg",
+        "bytes": 840957,
+        "md5": "88be6d9cf2927a09182e2bfccc9b8b56"
+      },
+      {
+        "path": "public/assets/nature/rock_moss_set_01/textures/rock_moss_set_01_rough_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/rock_moss_set_01/rock_moss_set_01_rough_2k.jpg",
+        "bytes": 293827,
+        "md5": "f7b3045b503fbde038598f8586ac25ef"
+      }
+    ]
+  },
+  {
+    "id": "fern_02",
+    "title": "Fern 02",
+    "authors": {
+      "Rob Tuytel": "scanning",
+      "Rico Cilliers": "modeling"
+    },
+    "assetUrl": "https://polyhaven.com/a/fern_02",
+    "infoUrl": "https://api.polyhaven.com/info/fern_02",
+    "manifestUrl": "https://api.polyhaven.com/files/fern_02",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://polyhaven.com/license",
+    "resolution": "2k",
+    "files": [
+      {
+        "path": "public/assets/nature/fern_02/fern_02_2k.gltf",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/fern_02/fern_02_2k.gltf",
+        "bytes": 6899,
+        "md5": "904c73900125e017f5e76ac1cdd906fe"
+      },
+      {
+        "path": "public/assets/nature/fern_02/textures/fern_02_diff_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/fern_02/fern_02_diff_2k.jpg",
+        "bytes": 993703,
+        "md5": "ba8bbb9dc9ff55bdc081565cd926d776"
+      },
+      {
+        "path": "public/assets/nature/fern_02/textures/fern_02_arm_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/fern_02/fern_02_arm_2k.jpg",
+        "bytes": 850856,
+        "md5": "7f7b46e813a3cb4811405191de0ecdce"
+      },
+      {
+        "path": "public/assets/nature/fern_02/fern_02.bin",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/fern_02/fern_02.bin",
+        "bytes": 176176,
+        "md5": "c061e9255f7d36ae9ce0e92ef3e100b2"
+      },
+      {
+        "path": "public/assets/nature/fern_02/textures/fern_02_nor_gl_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/fern_02/fern_02_nor_gl_2k.jpg",
+        "bytes": 1365615,
+        "md5": "00936dff4661dc9fe1f2fbe6c000615a"
+      },
+      {
+        "path": "public/assets/nature/fern_02/textures/fern_02_alpha_2k.png",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/fern_02/fern_02_alpha_2k.png",
+        "bytes": 230089,
+        "md5": "ff18f7e8e869c58eac8f9c7d7c519f4a"
+      }
+    ]
+  }
+]
