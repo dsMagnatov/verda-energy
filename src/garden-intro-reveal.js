@@ -1,4 +1,5 @@
 const EASE = 'cubic-bezier(.22, 1, .36, 1)';
+const TILT_CARDS = new Set(['.garden-intro-main', '.garden-intro-left', '.garden-intro-right']);
 
 // Time-based entrances continue when scrolling stops. Scroll still owns the
 // whole section's exit, so a fast skip never delays the next scene.
@@ -12,7 +13,7 @@ export function createGardenIntroReveal(root) {
     const element = scope.querySelector(selector);
     if (!element) return;
     element.dataset.arrivalItem = '';
-    items.push({ element, delay, duration, frames: [
+    items.push({ element, delay, duration, additiveTransform: TILT_CARDS.has(selector), frames: [
       { opacity: 0, transform }, { opacity: 1, transform: 'none' },
     ] });
   };
@@ -61,10 +62,15 @@ export function createGardenIntroReveal(root) {
       // Backwards fill hides each item during its own delay, then releases
       // every transform/opacity effect on finish. Persistent parent effects
       // would interfere with the cards' live backdrop blur.
-      const animation = item.element.animate(item.frames, {
-        delay: item.delay, duration: item.duration, easing: EASE, fill: 'backwards',
-      });
+      const options = { delay: item.delay, duration: item.duration, easing: EASE, fill: 'backwards' };
+      // Only the entrance displacement adds to the live perspective tilt.
+      // Opacity remains a replacement effect, so delayed cards stay hidden.
+      const frames = item.additiveTransform ? item.frames.map(({ opacity }) => ({ opacity })) : item.frames;
+      const animation = item.element.animate(frames, options);
       animations.push(animation);
+      if (item.additiveTransform) animations.push(item.element.animate(
+        item.frames.map(({ transform }) => ({ transform })), { ...options, composite: 'add' },
+      ));
       if (item.element === button) {
         animation.finished.then(() => {
           if (!disposed && entered && visit === currentVisit) button.inert = false;

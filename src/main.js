@@ -22,6 +22,7 @@ import { createMobileNavigation, getSceneFraming } from './responsive.js';
 import { createPreloader } from './preloader.js';
 import { createGardenIntroArt } from './garden-intro-art.js';
 import { createGardenIntroReveal } from './garden-intro-reveal.js';
+import { createCardTilt } from './card-tilt.js';
 import './mobile.css';
 import './garden-intro.css';
 import './solar-story.css';
@@ -65,6 +66,7 @@ const ui = {
   nav: [...document.querySelectorAll('.nav-link')],
 };
 const gardenIntroReveal = createGardenIntroReveal(ui.gardenIntro);
+const cardTilt = createCardTilt();
 function visibility(element, opacity, offset = 0) {
   element.style.opacity = opacity.toFixed(3);
   element.style.transform = `translateY(${offset.toFixed(1)}px)`;
@@ -88,6 +90,7 @@ function fallback(message) {
   console.warn('VERDA ENERGY:', message);
   document.body.classList.add('no-webgl');
   gardenIntroReveal.showStatic();
+  cardTilt.dispose();
   document.body.classList.remove('webgl-title-ready');
   document.querySelector('#fallback-note').hidden = false;
   preloader.finish(false);
@@ -232,6 +235,7 @@ async function init() {
     dust.resize(innerHeight,pixelRatio);
     gardenDust.resize(innerHeight,pixelRatio);
     gardenIntroArt?.resize();
+    cardTilt.resize();
     uniforms.renderResolution.value.set(innerWidth * pixelRatio, innerHeight * pixelRatio);
   }
   resize(); window.addEventListener('resize', resize);
@@ -336,6 +340,7 @@ async function init() {
     ui.solarStory.style.setProperty('--solar-description-reveal', descriptionReveal.toFixed(3));
     ui.solarStory.inert = identityReveal < .08;
     document.body.classList.toggle('solar-details-active', identityReveal >= .08);
+    cardTilt.update(dt, media.matches || ambientPaused);
     document.body.classList.toggle('garden-active', progress > .455 && footerTop > 90);
     document.body.classList.toggle('hero-active', progress < .30);
     const nextControlsScene = progress >= .455 ? 'garden' : 'hero';

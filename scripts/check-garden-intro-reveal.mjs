@@ -50,7 +50,14 @@ visit.reveal.update(.42); visit.reveal.update(.43);
 assert.equal(visit.animations().length, 0, 'The preceding screen does not start the entrance');
 visit.reveal.update(.435);
 const entrance = visit.animations();
-assert.equal(entrance.length, visit.items.length);
+assert.equal(entrance.length, visit.items.length + 3, 'Tilted cards have separate opacity and additive entrance movement');
+for (const selector of ['.garden-intro-main', '.garden-intro-left', '.garden-intro-right']) {
+  const [fade, motion] = visit.root.querySelector(selector).animations;
+  assert.equal(fade.frames[0].opacity, 0, 'Delayed cards remain invisible before entrance');
+  assert.equal(fade.frames[0].transform, undefined, 'Fade does not replace live tilt');
+  assert.equal(motion.options.composite, 'add', 'Entrance movement composes with live tilt');
+  assert.equal(motion.frames[0].opacity, undefined, 'Additive movement cannot add to opacity');
+}
 assert(new Set(entrance.map(animation => animation.options.delay)).size >= 8, 'The composition has distinct entrance timings');
 for (let frame = 0; frame < 180; frame++) visit.reveal.update(.52);
 assert.equal(visit.animations().length, entrance.length, 'Pausing scroll never restarts time-based entrances');

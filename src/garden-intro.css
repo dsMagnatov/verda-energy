@@ -48,6 +48,12 @@
   margin-inline: auto;
 }
 
+.garden-intro-main,
+.garden-intro-left,
+.garden-intro-right {
+  transform: perspective(900px) rotateX(var(--card-tilt-x, 0deg)) rotateY(var(--card-tilt-y, 0deg));
+}
+
 .garden-intro-main {
   position: relative;
   display: grid;
@@ -173,7 +179,7 @@
 .garden-intro-right {
   position: absolute;
   z-index: 3;
-  top: 14%;
+  top: calc(100% - 178px);
   left: calc(100% + 24px);
   width: clamp(198px, 16.7vw, 248px);
   padding: 20px;
@@ -252,6 +258,7 @@
   #garden-intro .garden-intro-heading { top: 12vh; font-size: 60px; }
   .garden-intro-metrics { padding: 14px 20px 16px; }
   .garden-intro-chart { height: 20px; }
+  .garden-intro-right { top: calc(100% - 154px); }
   #garden-intro > .garden-intro-description { bottom: 28px; width: 250px; }
 }
 
