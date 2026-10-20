@@ -114,8 +114,12 @@ export async function createGardenIntroArt({ canvas, rockGeometry, stoneMaterial
   const scene = new THREE.Scene();
   scene.add(model);
 
-  const ambient = new THREE.HemisphereLight('#edf0e6', '#525a40', 1.1);
-  const key = new THREE.DirectionalLight('#fff2d9', 1.8);
+  // The scan needs light from the viewer as well as above: the main garden's
+  // environment is absent in this transparent, independently rendered view.
+  // Keep the key directional so the fracture normals still show their relief.
+  const lightLevels = { ambient: 2, key: 4, fill: 2.4, rim: 1.4 };
+  const ambient = new THREE.HemisphereLight('#f4f3e8', '#a2a797', lightLevels.ambient);
+  const key = new THREE.DirectionalLight('#fff2d9', lightLevels.key);
   key.position.set(-3.5, 5, 4.5);
   key.castShadow = true;
   key.shadow.mapSize.set(512, 512);
@@ -126,9 +130,9 @@ export async function createGardenIntroArt({ canvas, rockGeometry, stoneMaterial
   key.shadow.bias = -.00015;
   key.shadow.normalBias = .015;
   key.shadow.radius = 2;
-  const fill = new THREE.DirectionalLight('#d3e2cd', .8);
-  fill.position.set(4, 1.5, 2);
-  const rim = new THREE.DirectionalLight('#f8f4d9', .9);
+  const fill = new THREE.DirectionalLight('#eef3ff', lightLevels.fill);
+  fill.position.set(3, 1.5, 5.5);
+  const rim = new THREE.DirectionalLight('#f8f4d9', lightLevels.rim);
   rim.position.set(1, 4, -3);
   scene.add(ambient, key, key.target, fill, rim);
 
@@ -145,7 +149,7 @@ export async function createGardenIntroArt({ canvas, rockGeometry, stoneMaterial
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1;
+    renderer.toneMappingExposure = 1.22;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   } catch (error) {
@@ -222,10 +226,10 @@ export async function createGardenIntroArt({ canvas, rockGeometry, stoneMaterial
       const energy = .7 + Math.sqrt(intensity) * .14;
       key.color.lerpColors(neutralSunlight, warmSunlight, warmth);
       rim.color.copy(key.color);
-      key.intensity = 1.8 * energy;
-      ambient.intensity = 1.1 * energy;
-      fill.intensity = .8 * energy;
-      rim.intensity = .9 * energy;
+      key.intensity = lightLevels.key * energy;
+      ambient.intensity = lightLevels.ambient * energy;
+      fill.intensity = lightLevels.fill * energy;
+      rim.intensity = lightLevels.rim * energy;
     }
     dirty = true;
   }
