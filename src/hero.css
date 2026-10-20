@@ -57,7 +57,7 @@ h1,.story-copy h2,.impact-heading h2,.closing h2,dialog h2{font-family:Instrumen
 .garden-intro-copy>p{max-width:500px;margin:0 auto;font-size:15px;line-height:1.7}
 .solar-specs{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:0;font-family:Manrope,Arial,sans-serif;color:#fff9e9}
 .solar-spec-card{--card-reveal:0;--card-enter:-72px;--card-offset:calc((1 - var(--card-reveal)) * var(--card-enter));position:absolute;left:50%;top:50%;width:clamp(190px,15vw,220px);padding:22px 24px;border-radius:18px;opacity:var(--card-reveal);transform:translate(calc(-50% + var(--card-offset)),-50%);will-change:transform,opacity}
-.solar-spec-card,.garden-intro-main,.garden-intro-left,.garden-intro-right,.garden-intro-left-inset{border:0;background:linear-gradient(135deg,#101b1794,#15231d7a);backdrop-filter:blur(22px) saturate(1.08);-webkit-backdrop-filter:blur(22px) saturate(1.08);box-shadow:0 14px 46px #0b1b1229}
+.solar-spec-card,.garden-intro-main,.garden-intro-left{border:0;background:linear-gradient(135deg,#101b1794,#15231d7a);backdrop-filter:blur(22px) saturate(1.08);-webkit-backdrop-filter:blur(22px) saturate(1.08);box-shadow:0 14px 46px #0b1b1229}
 .solar-spec-card[data-panel-anchor=efficiency]{--card-enter:72px}
 .solar-spec-card h3{font-family:Manrope,Arial,sans-serif;font-size:12px;line-height:1.35;letter-spacing:-.025em;font-weight:400;color:#faf7ed;opacity:.8;margin:0 0 12px}
 .solar-spec-card__value{font-family:Instrument,Georgia,serif;font-size:42px;line-height:1.05;letter-spacing:-.035em;font-weight:400;font-variant-numeric:tabular-nums;margin:0;color:#fffbed;white-space:nowrap}

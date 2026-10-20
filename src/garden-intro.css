@@ -159,7 +159,8 @@
 .garden-intro-left-inset {
   padding: 15px;
   border-radius: 17px;
-  color: #fff9e9;
+  background: #f6f5ef;
+  color: #20251f;
 }
 
 .garden-intro-left-inset p {
@@ -177,7 +178,8 @@
   width: clamp(198px, 16.7vw, 248px);
   padding: 20px;
   border-radius: 24px;
-  color: #fff9e9;
+  background: #f6f5ef;
+  color: #171c16;
 }
 
 .garden-intro-right .garden-intro-number {
@@ -196,7 +198,7 @@
 
 .garden-intro-right > p:not(.garden-intro-number) {
   margin: 0;
-  color: #fffbed8f;
+  color: #53584e;
   font-size: 14px;
   line-height: 1.4;
   letter-spacing: -.02em;
@@ -212,7 +214,7 @@
   padding: 11px 14px;
   border: 0;
   border-radius: 28px;
-  background: #171c16;
+  background: #111;
   color: #faf8ef;
   font-family: Manrope, Arial, sans-serif;
   font-size: 14px;
@@ -220,7 +222,7 @@
   transition: background .2s ease;
 }
 
-.garden-intro-right button:hover { background: #3c4935; }
+.garden-intro-right button:hover { background: #292929; }
 .garden-intro-right button:focus-visible { outline-color: #445f35; }
 
 #garden-intro.arrival-motion-ready:not([data-arrival-visible]) [data-arrival-item] {
