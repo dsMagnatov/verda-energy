@@ -48,14 +48,6 @@
   margin-inline: auto;
 }
 
-.garden-intro-main,
-.garden-intro-left {
-  border: 1px solid #f3f3eb38;
-  background: #22292166;
-  backdrop-filter: blur(80px);
-  -webkit-backdrop-filter: blur(80px);
-}
-
 .garden-intro-main {
   position: relative;
   display: grid;
@@ -167,8 +159,7 @@
 .garden-intro-left-inset {
   padding: 15px;
   border-radius: 17px;
-  background: #f6f5ef;
-  color: #20251f;
+  color: #fff9e9;
 }
 
 .garden-intro-left-inset p {
@@ -186,8 +177,7 @@
   width: clamp(198px, 16.7vw, 248px);
   padding: 20px;
   border-radius: 24px;
-  background: #f6f5ef;
-  color: #171c16;
+  color: #fff9e9;
 }
 
 .garden-intro-right .garden-intro-number {
@@ -206,7 +196,7 @@
 
 .garden-intro-right > p:not(.garden-intro-number) {
   margin: 0;
-  color: #53584e;
+  color: #fffbed8f;
   font-size: 14px;
   line-height: 1.4;
   letter-spacing: -.02em;
