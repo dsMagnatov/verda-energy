@@ -20,7 +20,9 @@ import { createSolarSpecs } from './solar-specs.js';
 import { createContactForms } from './contact.js';
 import { createMobileNavigation, getSceneFraming } from './responsive.js';
 import { createPreloader } from './preloader.js';
+import { createGardenIntroArt } from './garden-intro-art.js';
 import './mobile.css';
+import './garden-intro.css';
 
 const canvas = document.querySelector('#scene');
 const preloader = createPreloader();
@@ -137,11 +139,6 @@ async function init() {
   const rocks = createFloatingRocks(stone, uniforms, {...heroAssets,fernTemplates}); introScene.add(rocks.group);
   const dust=createHeroDust(introScene);
   const landscape = createSolarGarden({ uniforms, stoneMaterial: stone, fernTemplates }); landScene.add(landscape.group);
-  const lakeTextAnchor = new THREE.Vector3();
-  const lakeTextRim = Array.from({length:32}, (_, index) => {
-    const angle = index / 32 * Math.PI * 2;
-    return new THREE.Vector3(Math.cos(angle) * landscape.pond.userData.radii[0], Math.sin(angle) * landscape.pond.userData.radii[1], 0);
-  });
   const gardenPanelPointer = new THREE.Vector2();
   const solarSpecs = createSolarSpecs(document.querySelector('.solar-specs'), landscape.panel, landCamera);
   const gardenDust = createHeroDust(landScene);
@@ -158,7 +155,7 @@ async function init() {
   const gardenCompositeMaterial = createJourneyCompositeMaterial(landTarget.texture, landTarget.texture, innerWidth / innerHeight);
   gardenCompositeScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), gardenCompositeMaterial));
   let sceneSettings = createDefaultSceneSettings();
-  let heroTitle;
+  let heroTitle, gardenIntroArt;
   const applySceneControls = settings => {
     sceneSettings = settings;
     atmosphere.setControls(settings.rays);
@@ -181,6 +178,7 @@ async function init() {
     rocks.decorations.setControls(settings);
     titleHover.setControls(settings.title);
     heroTitle?.setControls(settings.title);
+    gardenIntroArt?.setControls(settings);
     document.documentElement.style.setProperty('--hero-grain-opacity', settings.background.noise);
     document.documentElement.style.setProperty('--hero-shade-opacity', Math.min(1, settings.background.vignette/.13));
     document.documentElement.style.setProperty('--garden-grain-opacity', settings.gardenBackground.noise);
@@ -198,6 +196,12 @@ async function init() {
     depthTexture: rockTarget.depthTexture, compositeMaterial,
   });
   heroTitle.setControls(sceneControls.settings.title);
+  gardenIntroArt = await createGardenIntroArt({
+    canvas: document.querySelector('#garden-intro-art'),
+    rockGeometry: heroAssets.mainGeometry, stoneMaterial: stone, fernTemplates, compact: framing.compact,
+  }).catch(error => { console.warn('Garden card artwork:', error); return null; });
+  gardenIntroArt?.setControls(sceneControls.settings);
+  if (gardenIntroArt) document.querySelector('.garden-intro-art').classList.add('is-ready');
   let pixelRatio = framing.pixelRatio;
   function resize() {
     framing = getSceneFraming(innerWidth, innerHeight, devicePixelRatio);
@@ -221,6 +225,7 @@ async function init() {
     heroTitle.resize();
     dust.resize(innerHeight,pixelRatio);
     gardenDust.resize(innerHeight,pixelRatio);
+    gardenIntroArt?.resize();
     uniforms.renderResolution.value.set(innerWidth * pixelRatio, innerHeight * pixelRatio);
   }
   resize(); window.addEventListener('resize', resize);
@@ -314,17 +319,7 @@ async function init() {
     compositeMaterial.updateTime(elapsed);
     renderer.setRenderTarget(null); renderer.render(compositeScene, compositeCamera);
     updateUI(progress);
-    if (!ui.gardenIntro.inert) {
-      // Perspective shifts the visible oval's center toward its near bank.
-      let left=Infinity,right=-Infinity,top=Infinity,bottom=-Infinity;
-      for (const point of lakeTextRim) {
-        lakeTextAnchor.copy(point).applyMatrix4(landscape.pond.matrixWorld).project(landCamera);
-        left=Math.min(left,lakeTextAnchor.x);right=Math.max(right,lakeTextAnchor.x);
-        top=Math.min(top,lakeTextAnchor.y);bottom=Math.max(bottom,lakeTextAnchor.y);
-      }
-      ui.gardenIntro.style.left = `${((left + right + 2) * innerWidth / 4).toFixed(1)}px`;
-      ui.gardenIntro.style.top = `${((2 - top - bottom) * innerHeight / 4).toFixed(1)}px`;
-    }
+    gardenIntroArt?.update(elapsed, !ui.gardenIntro.inert, media.matches || ambientPaused);
     const footerTop = document.querySelector('#closing').getBoundingClientRect().top;
     const cameraFinish = Math.max(sceneSettings.gardenCamera.moveStart, sceneSettings.gardenCamera.moveEnd) / 100;
     solarSpecs.update(progress, innerWidth, innerHeight, progress >= .455 && footerTop > 90, cameraFinish);

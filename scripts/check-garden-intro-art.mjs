@@ -1,0 +1,50 @@
+import assert from 'node:assert/strict';
+import * as THREE from 'three';
+import { createGardenIntroModel } from '../src/garden-intro-art.js';
+import { createDefaultSceneSettings } from '../src/scene-settings.js';
+
+const rockGeometry = new THREE.SphereGeometry(1, 24, 16);
+const fernGeometry = new THREE.PlaneGeometry(1.5, 1).translate(0, .5, 0);
+const sharedMap = new THREE.Texture();
+const stoneMaterial = new THREE.MeshStandardMaterial({ map: sharedMap });
+const fernMaterial = new THREE.MeshStandardMaterial({ map: sharedMap, side: THREE.DoubleSide, color: '#729650' });
+const fernTemplate = new THREE.Mesh(fernGeometry, fernMaterial);
+fernTemplate.customDepthMaterial = new THREE.MeshDepthMaterial();
+const originalPositions = rockGeometry.attributes.position.array.slice();
+const originalColor = fernMaterial.color.clone();
+const sourceDisposals = [];
+for (const resource of [rockGeometry, fernGeometry, stoneMaterial, fernMaterial, sharedMap, fernTemplate.customDepthMaterial]) {
+  resource.addEventListener('dispose', () => sourceDisposals.push(resource));
+}
+
+const art = createGardenIntroModel({ rockGeometry, stoneMaterial, fernTemplates: [fernTemplate] });
+assert.notEqual(art.rock.geometry, rockGeometry);
+assert.notEqual(art.rock.material, stoneMaterial);
+assert.notEqual(art.fern.material, fernMaterial);
+assert.equal(art.fern.geometry, fernGeometry);
+assert.equal(art.fern.customDepthMaterial, fernTemplate.customDepthMaterial);
+assert.equal(art.rock.material.map, sharedMap);
+art.group.updateMatrixWorld(true);
+const contact = new THREE.Vector3().fromArray(art.fern.userData.rootSurfaceLocal).applyMatrix4(art.rock.matrixWorld);
+const root = art.fern.getWorldPosition(new THREE.Vector3());
+assert(Math.abs(root.distanceTo(contact) - .018) < 1e-6, 'Fern is rooted just inside the actual upper rock triangle');
+const settings = createDefaultSceneSettings();
+settings.ferns.tint = '#99cc77'; settings.stone.brightness = 2;
+art.setControls(settings);
+art.update(4, false);
+assert.notEqual(art.group.rotation.y, 0, 'Visible artwork has restrained ambient motion');
+art.update(9, true);
+assert.equal(art.group.rotation.y, 0);
+const steady = art.fern.quaternion.clone();
+art.update(19, true);
+assert(steady.angleTo(art.fern.quaternion) < 1e-7, 'Reduced motion holds the fern steady');
+assert.deepEqual(rockGeometry.attributes.position.array, originalPositions, 'Card framing never mutates first-screen geometry');
+assert(fernMaterial.color.equals(originalColor), 'Card color tuning never changes first-screen plants');
+let ownedDisposals = 0;
+for (const resource of [art.rock.geometry, art.rock.material, art.fern.material]) resource.addEventListener('dispose', () => ownedDisposals++);
+art.dispose(); art.dispose();
+assert.equal(ownedDisposals, 3, 'Owned geometry and surfaces are disposed exactly once');
+assert.equal(sourceDisposals.length, 0, 'Shared scans, textures and shadow materials remain usable');
+assert.equal(art.group.children.length, 0);
+for (const resource of [rockGeometry, fernGeometry, stoneMaterial, fernMaterial, sharedMap, fernTemplate.customDepthMaterial]) resource.dispose();
+console.log('Garden arrival artwork passed: surface contact, isolated appearance, reduced motion and shared resource ownership');

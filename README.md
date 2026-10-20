@@ -2,6 +2,8 @@
 
 A responsive cinematic 3D website about solar energy, built with Three.js and Vite. Floating scanned rocks frame the opening typography; a reversible scroll journey reveals a planted courtyard, reflective pond and descending solar panel.
 
+On arrival at the solar garden, three editorial cards introduce the energy story: a real scanned rock and fern with two monochrome line charts, a message card, and a solar-power card with a contact button. The artwork reuses the loaded scans and renders only while its card is visible. Further scrolling retains the existing camera, panel descent and later specification cards.
+
 [Live website](https://verda-energy.vercel.app/) · [Source repository](https://github.com/dsMagnatov/verda-energy)
 
 Pushes to the main branch deploy automatically to the Vercel project `verda-energy` in the `stanislav-magnatov` account.
@@ -40,6 +42,7 @@ node scripts/check-responsive.mjs
 node scripts/check-shared-settings.mjs
 node scripts/check-contact-api.mjs
 node scripts/check-vercel.mjs
+node scripts/check-garden-intro-art.mjs
 ```
 
 ## Source and materials
