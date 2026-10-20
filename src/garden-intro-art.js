@@ -133,7 +133,9 @@ export async function createGardenIntroArt({ canvas, rockGeometry, stoneMaterial
   scene.add(ambient, key, key.target, fill, rim);
 
   const camera = new THREE.OrthographicCamera(-2, 2, 2, -2, .1, 30);
-  camera.position.set(0, .6, 8);
+  // A slightly higher view exposes the stone's upper fractures as well as
+  // its front face, while retaining the upright silhouette of the fern.
+  camera.position.set(0, 1.65, 8);
   camera.lookAt(0, 0, 0);
   camera.updateMatrixWorld();
 
@@ -160,8 +162,8 @@ export async function createGardenIntroArt({ canvas, rockGeometry, stoneMaterial
   let pixelRatio = 0;
   let lastReducedMotion = null;
   const cameraBounds = new THREE.Box3();
-  const worldBounds = new THREE.Box3();
-  const corner = new THREE.Vector3();
+  const vertex = new THREE.Vector3();
+  const meshToCamera = new THREE.Matrix4();
   const neutralSunlight = new THREE.Color('#f1f3ea');
   const warmSunlight = new THREE.Color('#ffd5aa');
 
@@ -170,7 +172,7 @@ export async function createGardenIntroArt({ canvas, rockGeometry, stoneMaterial
     const rect = canvas.getBoundingClientRect();
     if (!(rect.width > 0 && rect.height > 0)) return;
     const nextWidth = Math.round(rect.width), nextHeight = Math.round(rect.height);
-    const nextRatio = Math.min(globalThis.devicePixelRatio || 1, 1.25, 640 / Math.max(nextWidth, nextHeight));
+    const nextRatio = Math.min(globalThis.devicePixelRatio || 1, compact ? 1.5 : 2, (compact ? 768 : 1024) / Math.max(nextWidth, nextHeight));
     if (width === nextWidth && height === nextHeight && pixelRatio === nextRatio) return;
     width = nextWidth;
     height = nextHeight;
@@ -178,23 +180,31 @@ export async function createGardenIntroArt({ canvas, rockGeometry, stoneMaterial
     renderer.setPixelRatio(pixelRatio);
     renderer.setSize(width, height, false);
 
-    // Fit all eight bounds corners in camera space, including the fern's wide
-    // outer fronds. Both tall mobile cards and wide desktop cards stay uncropped.
+    // Project the actual scan vertices rather than a rotated world bounding
+    // box: its empty corners previously left a substantial border around the
+    // close-up. This resize-only pass keeps every outer frond in view while
+    // allowing the rock texture to occupy more of the enlarged card.
     model.updateWorldMatrix(true, true);
-    worldBounds.setFromObject(model);
     cameraBounds.makeEmpty();
-    for (let x = 0; x < 2; x++) for (let y = 0; y < 2; y++) for (let z = 0; z < 2; z++) {
-      corner.set(x ? worldBounds.max.x : worldBounds.min.x, y ? worldBounds.max.y : worldBounds.min.y, z ? worldBounds.max.z : worldBounds.min.z);
-      cameraBounds.expandByPoint(corner.applyMatrix4(camera.matrixWorldInverse));
-    }
-    const halfWidth = Math.max(Math.abs(cameraBounds.min.x), Math.abs(cameraBounds.max.x)) * 1.06;
-    const halfHeight = Math.max(Math.abs(cameraBounds.min.y), Math.abs(cameraBounds.max.y)) * 1.06;
+    model.traverse(mesh => {
+      const positions = mesh.isMesh && mesh.geometry.getAttribute('position');
+      if (!positions || !mesh.visible) return;
+      meshToCamera.multiplyMatrices(camera.matrixWorldInverse, mesh.matrixWorld);
+      for (let index = 0; index < positions.count; index++) {
+        vertex.fromBufferAttribute(positions, index).applyMatrix4(meshToCamera);
+        cameraBounds.expandByPoint(vertex);
+      }
+    });
+    const centerX = (cameraBounds.min.x + cameraBounds.max.x) * .5;
+    const centerY = (cameraBounds.min.y + cameraBounds.max.y) * .5;
+    const halfWidth = (cameraBounds.max.x - cameraBounds.min.x) * .5 * 1.04;
+    const halfHeight = (cameraBounds.max.y - cameraBounds.min.y) * .5 * 1.04;
     const aspect = width / height;
     const fitHeight = Math.max(halfHeight, halfWidth / aspect, .1);
-    camera.left = -fitHeight * aspect;
-    camera.right = fitHeight * aspect;
-    camera.top = fitHeight;
-    camera.bottom = -fitHeight;
+    camera.left = centerX - fitHeight * aspect;
+    camera.right = centerX + fitHeight * aspect;
+    camera.top = centerY + fitHeight;
+    camera.bottom = centerY - fitHeight;
     camera.updateProjectionMatrix();
     dirty = true;
   }

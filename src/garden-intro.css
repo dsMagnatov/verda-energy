@@ -1,7 +1,7 @@
 #garden-intro.garden-intro-copy {
-  --arrival-card-width: clamp(258px, 22vw, 336px);
-  --arrival-card-height: clamp(330px, 49vh, 448px);
-  --arrival-cluster-top: 36vh;
+  --arrival-card-width: clamp(320px, 28vw, 420px);
+  --arrival-card-height: clamp(410px, 66vh, 600px);
+  --arrival-cluster-top: 29vh;
   position: fixed;
   inset: 0;
   left: 0 !important;
@@ -12,6 +12,7 @@
   margin: 0;
   padding: 0;
   translate: none;
+  transform: none !important;
   color: #f4f1e8;
   text-align: left;
   text-shadow: none;
@@ -20,7 +21,7 @@
 
 #garden-intro .garden-intro-heading {
   position: absolute;
-  top: 20vh;
+  top: 13vh;
   left: 50%;
   width: calc(100% - 80px);
   max-width: 1100px;
@@ -40,22 +41,25 @@
 .garden-intro-cards {
   position: absolute;
   top: var(--arrival-cluster-top);
-  left: 50%;
+  left: 0;
+  right: 0;
   width: var(--arrival-card-width);
   height: var(--arrival-card-height);
-  translate: -50% 0;
+  margin-inline: auto;
 }
 
 .garden-intro-main,
 .garden-intro-left {
   border: 1px solid #f3f3eb38;
   background: #22292166;
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(80px);
 }
 
 .garden-intro-main {
   position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -63,9 +67,8 @@
 }
 
 .garden-intro-art {
-  position: absolute;
-  inset: 0 0 auto;
-  height: 53%;
+  position: relative;
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -76,10 +79,7 @@
 }
 
 .garden-intro-metrics {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
   padding: 18px 22px 20px;
 }
 
@@ -150,7 +150,7 @@
   position: absolute;
   z-index: 2;
   top: 8%;
-  right: calc(100% - 25px);
+  right: calc(100% + 24px);
   width: clamp(210px, 17.6vw, 264px);
   padding: 17px 7px 7px;
   border-radius: 23px;
@@ -182,7 +182,7 @@
   position: absolute;
   z-index: 3;
   top: 14%;
-  left: calc(100% - 28px);
+  left: calc(100% + 24px);
   width: clamp(198px, 16.7vw, 248px);
   padding: 20px;
   border-radius: 24px;
@@ -250,11 +250,10 @@
 
 @media (min-width: 901px) and (max-height: 650px) {
   #garden-intro.garden-intro-copy {
-    --arrival-card-height: 306px;
-    --arrival-cluster-top: 32vh;
+    --arrival-card-height: min(390px, 65vh);
+    --arrival-cluster-top: 29vh;
   }
-  #garden-intro .garden-intro-heading { top: 17vh; font-size: 60px; }
-  .garden-intro-art { height: 47%; }
+  #garden-intro .garden-intro-heading { top: 12vh; font-size: 60px; }
   .garden-intro-metrics { padding: 14px 20px 16px; }
   .garden-intro-chart { height: 20px; }
   #garden-intro > .garden-intro-description { bottom: 28px; width: 250px; }
@@ -262,29 +261,29 @@
 
 @media (min-width: 601px) and (max-width: 900px) and (min-height: 541px) {
   #garden-intro.garden-intro-copy {
-    --arrival-card-width: 270px;
-    --arrival-card-height: min(410px, 47vh);
-    --arrival-cluster-top: 34vh;
+    --arrival-card-width: clamp(250px, 38vw, 320px);
+    --arrival-card-height: min(510px, 59vh);
+    --arrival-cluster-top: 30vh;
   }
   #garden-intro .garden-intro-heading {
-    top: 18vh;
+    top: 12.5vh;
     width: calc(100% - 48px);
     font-size: clamp(54px, 8.5vw, 76px);
   }
-  .garden-intro-left { width: 190px; right: calc(100% - 42px); }
+  .garden-intro-left { width: clamp(136px, 22vw, 190px); }
   .garden-intro-left > p, .garden-intro-left-inset p { font-size: 13px; }
-  .garden-intro-right { width: 190px; left: calc(100% - 42px); padding: 18px; }
+  .garden-intro-right { width: clamp(136px, 22vw, 190px); padding: 18px; }
   #garden-intro > .garden-intro-description { left: 28px; bottom: 36px; width: 280px; font-size: 14px; }
 }
 
 @media (max-width: 600px) {
   #garden-intro.garden-intro-copy {
-    --arrival-card-width: min(270px, 70vw);
-    --arrival-card-height: 306px;
-    --arrival-cluster-top: 26svh;
+    --arrival-card-width: min(320px, calc(100vw - 36px));
+    --arrival-card-height: 370px;
+    --arrival-cluster-top: 22.5svh;
   }
   #garden-intro .garden-intro-heading {
-    top: calc(104px + env(safe-area-inset-top));
+    top: calc(90px + env(safe-area-inset-top));
     width: calc(100% - 36px);
     font-size: clamp(37px, 11.7vw, 62px);
     line-height: 1;
@@ -294,14 +293,14 @@
   .garden-intro-cards { width: calc(100% - 36px); height: calc(var(--arrival-card-height) + 158px); }
   .garden-intro-main {
     position: absolute;
-    left: 50%;
+    left: 0;
+    right: 0;
     top: 0;
     width: var(--arrival-card-width);
     height: var(--arrival-card-height);
-    translate: -50% 0;
+    margin-inline: auto;
     border-radius: 22px;
   }
-  .garden-intro-art { height: 46%; }
   .garden-intro-metrics { padding: 15px 20px 16px; }
   .garden-intro-main-title { margin-bottom: 10px; font-size: 25px; }
   .garden-intro-metric { margin-top: 7px; gap: 2px 8px; }
@@ -310,7 +309,7 @@
   .garden-intro-chart { height: 22px; }
   .garden-intro-left,
   .garden-intro-right {
-    top: calc(var(--arrival-card-height) + 12px);
+    top: calc(var(--arrival-card-height) + 24px);
     width: calc(50% - 6px);
     min-height: 142px;
     border-radius: 19px;
@@ -337,11 +336,10 @@
 
 @media (max-width: 600px) and (max-height: 760px) {
   #garden-intro.garden-intro-copy {
-    --arrival-card-height: 266px;
-    --arrival-cluster-top: 24.5svh;
+    --arrival-card-height: 300px;
+    --arrival-cluster-top: 22svh;
   }
-  #garden-intro .garden-intro-heading { top: calc(94px + env(safe-area-inset-top)); font-size: clamp(35px, 10.7vw, 43px); }
-  .garden-intro-art { height: 41%; }
+  #garden-intro .garden-intro-heading { top: calc(86px + env(safe-area-inset-top)); font-size: clamp(35px, 10.7vw, 43px); }
   .garden-intro-metrics { padding: 12px 18px 14px; }
   .garden-intro-main-title { margin-bottom: 9px; font-size: 24px; }
   .garden-intro-metric { margin-top: 5px; }
@@ -354,8 +352,7 @@
 }
 
 @media (max-width: 600px) and (max-height: 680px) {
-  #garden-intro.garden-intro-copy { --arrival-card-height: 240px; }
-  .garden-intro-art { height: 35%; }
+  #garden-intro.garden-intro-copy { --arrival-card-height: 246px; --arrival-cluster-top: 21svh; }
   .garden-intro-main-title { font-size: 22px; margin-bottom: 8px; }
   .garden-intro-metric strong { font-size: 20px; }
   .garden-intro-chart { height: 18px; }
@@ -363,14 +360,13 @@
 
 @media (max-height: 540px) and (orientation: landscape) {
   #garden-intro.garden-intro-copy {
-    --arrival-card-width: 210px;
-    --arrival-card-height: min(216px, 54vh);
-    --arrival-cluster-top: 37vh;
+    --arrival-card-width: 240px;
+    --arrival-card-height: min(256px, 62vh);
+    --arrival-cluster-top: 34vh;
   }
-  #garden-intro .garden-intro-heading { top: 22vh; font-size: 37px; width: calc(100% - 48px); }
+  #garden-intro .garden-intro-heading { top: 18vh; font-size: 37px; width: calc(100% - 48px); }
   .garden-intro-cards { width: var(--arrival-card-width); height: var(--arrival-card-height); }
   .garden-intro-main { position: relative; left: auto; width: 100%; height: 100%; translate: none; border-radius: 18px; }
-  .garden-intro-art { height: 34%; }
   .garden-intro-metrics { padding: 9px 16px 11px; }
   .garden-intro-main-title { font-size: 22px; margin-bottom: 6px; }
   .garden-intro-metric { margin-top: 4px; gap: 1px 7px; }
@@ -378,11 +374,11 @@
   .garden-intro-metric strong { font-size: 19px; }
   .garden-intro-chart { height: 17px; }
   .garden-intro-left, .garden-intro-right { width: 176px; min-height: 0; border-radius: 18px; }
-  .garden-intro-left { top: 4%; left: auto; right: calc(100% - 18px); padding: 12px 6px 6px; }
+  .garden-intro-left { top: 4%; left: auto; right: calc(100% + 24px); padding: 12px 6px 6px; }
   .garden-intro-left > p { margin: 0 8px 9px; font-size: 12px; }
   .garden-intro-left-inset { padding: 11px; border-radius: 12px; }
   .garden-intro-left-inset p { font-size: 12px; }
-  .garden-intro-right { top: 27%; left: calc(100% - 8px); right: auto; padding: 13px; }
+  .garden-intro-right { top: 27%; left: calc(100% + 24px); right: auto; padding: 13px; }
   .garden-intro-right .garden-intro-number { font-size: 33px; }
   .garden-intro-right > p:not(.garden-intro-number) { font-size: 12px; }
   .garden-intro-right button { margin-top: 12px; font-size: 12px; padding: 9px; }
