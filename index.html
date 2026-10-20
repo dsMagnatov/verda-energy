@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#16140f" />
   <style>
+    @font-face{font-family:Instrument;src:url('/assets/fonts/instrument-serif-regular.woff2') format('woff2');font-display:swap}
+    .brand-name{font-family:Instrument,Georgia,serif;font-style:normal;font-weight:400;letter-spacing:-.025em}
     html.is-loading{overflow:hidden}
     .preloader{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:#141711;color:#f2ede1;font-family:Manrope,Arial,sans-serif;transition:opacity .55s ease,visibility .55s;opacity:1;visibility:visible}
     .preloader[hidden]{display:none!important}
@@ -27,7 +29,7 @@
 <body class="hero-active" data-scene-editor="hidden">
   <div class="preloader" id="load-status" role="status" aria-label="Loading VERDA">
     <div class="preloader__content">
-      <div class="preloader__brand"><svg viewBox="0 0 42 42" fill="none" aria-hidden="true"><path d="M8 8h9l12 23h-9L8 8Z" fill="currentColor"/><path d="m26 8-5 9 5 9L36 8H26Z" fill="currentColor"/></svg><span>VERDA</span></div>
+      <div class="preloader__brand"><svg viewBox="0 0 42 42" fill="none" aria-hidden="true"><path d="M8 8h9l12 23h-9L8 8Z" fill="currentColor"/><path d="m26 8-5 9 5 9L36 8H26Z" fill="currentColor"/></svg><span class="brand-name">VERDA</span></div>
       <div class="preloader__track" role="progressbar" aria-label="Loading scene" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="preloader__fill"></span></div>
       <span class="preloader__percent" id="load-percent" aria-hidden="true">0%</span>
     </div>
@@ -38,7 +40,7 @@
   <header class="site-header" data-preloader-inert inert>
     <a href="#origin" class="brand" aria-label="VERDA home" data-progress="0">
       <svg class="brand-mark" viewBox="0 0 42 42" fill="none" aria-hidden="true"><path d="M8 8h9l12 23h-9L8 8Z" fill="currentColor"/><path d="m26 8-5 9 5 9L36 8H26Z" fill="currentColor"/></svg>
-      <span>VERDA</span>
+      <span class="brand-name">VERDA</span>
     </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">Menu</button>
     <nav id="main-navigation" aria-label="Main navigation"><a class="nav-link active" href="#origin" data-progress="0">Our nature</a><a class="nav-link" href="#garden" data-progress="0.52">The energy</a><a class="nav-link" href="#garden" data-progress="1.26">Our impact</a><button class="mobile-contact" type="button" data-contact>Let’s talk</button></nav>
@@ -118,7 +120,7 @@
       </aside>
       <section class="solar-story" aria-labelledby="solar-story-model" inert>
         <div class="solar-story__identity">
-          <h2 class="solar-story__model" id="solar-story-model">VERDA 580</h2>
+          <h2 class="solar-story__model brand-name" id="solar-story-model">VERDA 580</h2>
           <div class="solar-story__details">
             <div class="solar-story__detail">
               <h3>More energy from light</h3>
@@ -130,7 +132,7 @@
             </div>
           </div>
         </div>
-        <p class="solar-story__description">From the first light of morning, VERDA 580 turns sunlight into a quieter way forward. High-efficiency cells bring more energy from each ray, while a considered design makes room for the landscape around them. Generate power close to where we live, rely less on finite resources, and make clean energy part of everyday life. Technology and nature, working toward the same future.</p>
+        <p class="solar-story__description">From the first light of morning, <span class="brand-name">VERDA</span> 580 turns sunlight into a quieter way forward. High-efficiency cells bring more energy from each ray, while a considered design makes room for the landscape around them. Generate power close to where we live, rely less on finite resources, and make clean energy part of everyday life. Technology and nature, working toward the same future.</p>
       </section>
     </div>
 
@@ -139,7 +141,7 @@
         <div class="closing-top">
           <a class="closing-brand" href="#origin" data-progress="0" aria-label="VERDA home">
             <svg class="brand-mark" viewBox="0 0 42 42" fill="none" aria-hidden="true"><path d="M8 8h9l12 23h-9L8 8Z" fill="currentColor"/><path d="m26 8-5 9 5 9L36 8H26Z" fill="currentColor"/></svg>
-            <span class="closing-brand-name">VERDA</span>
+            <span class="closing-brand-name brand-name">VERDA</span>
           </a>
           <p class="closing-note">A brighter future,<br>powered by nature</p>
           <div class="closing-contact">
@@ -178,8 +180,8 @@
               <button type="button" data-contact>Let’s talk</button>
             </div>
           </div>
-          <div class="closing-wordmark" aria-hidden="true">VERDA</div>
-          <div class="closing-meta"><p>© 2026 VERDA</p><p>Energy in harmony</p></div>
+          <div class="closing-wordmark brand-name" aria-hidden="true">VERDA</div>
+          <div class="closing-meta"><p>© 2026 <span class="brand-name">VERDA</span></p><p>Energy in harmony</p></div>
         </div>
       </section>
     </div>

@@ -55,9 +55,9 @@
 
 .closing-brand-name {
   font-size: 23px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -.055em;
+  letter-spacing: -.025em;
 }
 
 .closing-note {
@@ -210,12 +210,12 @@
   margin: auto 0 0;
   overflow: visible;
   color: rgba(242, 237, 225, .36);
-  font-family: Manrope, Arial, sans-serif;
+  font-family: Instrument, Georgia, serif;
   font-size: min(30.2vw, 40svh);
-  font-weight: 600;
-  line-height: .78;
-  letter-spacing: -.085em;
-  text-indent: -.038em;
+  font-weight: 400;
+  line-height: .8;
+  letter-spacing: -.035em;
+  text-indent: 0;
   text-align: center;
   white-space: nowrap;
   user-select: none;
