@@ -23,9 +23,11 @@ import { createPreloader } from './preloader.js';
 import { createGardenIntroArt } from './garden-intro-art.js';
 import { createGardenIntroReveal } from './garden-intro-reveal.js';
 import { createCardTilt } from './card-tilt.js';
+import { createFooterReveal } from './footer-reveal.js';
 import './mobile.css';
 import './garden-intro.css';
 import './solar-story.css';
+import './footer.css';
 
 const canvas = document.querySelector('#scene');
 const preloader = createPreloader();
@@ -67,6 +69,7 @@ const ui = {
 };
 const gardenIntroReveal = createGardenIntroReveal(ui.gardenIntro);
 const cardTilt = createCardTilt();
+createFooterReveal(document.querySelector('#closing'));
 function visibility(element, opacity, offset = 0) {
   element.style.opacity = opacity.toFixed(3);
   element.style.transform = `translateY(${offset.toFixed(1)}px)`;
@@ -100,7 +103,11 @@ function fallback(message) {
   ui.solarStory.inert = false;
   canvas.style.display = 'none';
   document.body.classList.remove('garden-active');
-  const syncStaticHeader = () => document.body.classList.toggle('hero-active', document.querySelector('#closing').getBoundingClientRect().top > 90);
+  const syncStaticHeader = () => {
+    const footerTop = document.querySelector('#closing').getBoundingClientRect().top;
+    document.body.classList.toggle('hero-active', footerTop > 90);
+    document.body.classList.toggle('footer-active', footerTop < 90);
+  };
   syncStaticHeader();
   window.addEventListener('scroll', syncStaticHeader, { passive: true });
 }
@@ -332,6 +339,7 @@ async function init() {
     gardenIntroReveal.update(progress, media.matches || ambientPaused);
     gardenIntroArt?.update(elapsed, !ui.gardenIntro.inert, media.matches || ambientPaused);
     const footerTop = document.querySelector('#closing').getBoundingClientRect().top;
+    document.body.classList.toggle('footer-active', footerTop < 90);
     const cameraFinish = Math.max(sceneSettings.gardenCamera.moveStart, sceneSettings.gardenCamera.moveEnd) / 100;
     const panelDetails = solarSpecs.update(progress, innerWidth, innerHeight, progress >= .455 && footerTop > 90, cameraFinish);
     const identityReveal = panelDetails.visible ? range(panelDetails.revealStart, panelDetails.revealStart + .12, progress) : 0;
