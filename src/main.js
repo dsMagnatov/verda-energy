@@ -21,6 +21,7 @@ import { createContactForms } from './contact.js';
 import { createMobileNavigation, getSceneFraming } from './responsive.js';
 import { createPreloader } from './preloader.js';
 import { createGardenIntroArt } from './garden-intro-art.js';
+import { createGardenIntroReveal } from './garden-intro-reveal.js';
 import './mobile.css';
 import './garden-intro.css';
 
@@ -61,6 +62,7 @@ const ui = {
   garden: document.querySelector('.garden-copy'),
   nav: [...document.querySelectorAll('.nav-link')],
 };
+const gardenIntroReveal = createGardenIntroReveal(ui.gardenIntro);
 function visibility(element, opacity, offset = 0) {
   element.style.opacity = opacity.toFixed(3);
   element.style.transform = `translateY(${offset.toFixed(1)}px)`;
@@ -83,6 +85,7 @@ function updateUI(progress) {
 function fallback(message) {
   console.warn('VERDA ENERGY:', message);
   document.body.classList.add('no-webgl');
+  gardenIntroReveal.showStatic();
   document.body.classList.remove('webgl-title-ready');
   document.querySelector('#fallback-note').hidden = false;
   preloader.finish(false);
@@ -319,6 +322,7 @@ async function init() {
     compositeMaterial.updateTime(elapsed);
     renderer.setRenderTarget(null); renderer.render(compositeScene, compositeCamera);
     updateUI(progress);
+    gardenIntroReveal.update(progress, media.matches || ambientPaused);
     gardenIntroArt?.update(elapsed, !ui.gardenIntro.inert, media.matches || ambientPaused);
     const footerTop = document.querySelector('#closing').getBoundingClientRect().top;
     const cameraFinish = Math.max(sceneSettings.gardenCamera.moveStart, sceneSettings.gardenCamera.moveEnd) / 100;

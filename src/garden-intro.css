@@ -233,6 +233,10 @@
 .garden-intro-right button:hover { background: #3c4935; }
 .garden-intro-right button:focus-visible { outline-color: #445f35; }
 
+#garden-intro.arrival-motion-ready:not([data-arrival-visible]) [data-arrival-item] {
+  opacity: 0;
+}
+
 #garden-intro > .garden-intro-description {
   position: absolute;
   left: var(--margin);
