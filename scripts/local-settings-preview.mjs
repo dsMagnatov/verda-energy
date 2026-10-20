@@ -1,14 +1,19 @@
 import { mkdir, readFile, writeFile, rename, readdir, unlink } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { handleSceneSettings, SCENE_SETTINGS_KEY } from '../worker/scene-settings-api.js';
 import { handleContact, CONTACT_MESSAGES_PREFIX } from '../worker/contact-api.js';
+import { sanitizeSceneSettings } from '../src/scene-settings.js';
 
 const inquiryFile = /^[\da-f]{8}-[\da-f]{4}-[1-8][\da-f]{3}-[89ab][\da-f]{3}-[\da-f]{12}\.json$/;
 
 // Loopback-only preview adapter. No production credentials or identities enter
 // the browser bundle; production uses the hosted R2 binding and Sites identity.
-export function createLocalPreviewBucket(directory = resolve('.sites-runtime')) {
+export function createLocalPreviewBucket(directory = resolve('.sites-runtime'), { initialSettings } = {}) {
+  const initialData = initialSettings ? JSON.stringify({ settings: sanitizeSceneSettings(initialSettings) }) : null;
+  const initialRecord = initialData ? {
+    etag: createHash('sha256').update(initialData).digest('hex'), data: initialData,
+  } : null;
   const fileFor = key => {
     if (key === SCENE_SETTINGS_KEY) return resolve(directory, 'shared-scene-preview.json');
     if (typeof key === 'string' && key.startsWith(CONTACT_MESSAGES_PREFIX)) {
@@ -20,7 +25,10 @@ export function createLocalPreviewBucket(directory = resolve('.sites-runtime')) 
   let queue = Promise.resolve();
   const read = async key => {
     try { return JSON.parse(await readFile(fileFor(key), 'utf8')); }
-    catch (error) { if (error.code === 'ENOENT') return null; throw error; }
+    catch (error) {
+      if (error.code === 'ENOENT') return key === SCENE_SETTINGS_KEY ? initialRecord : null;
+      throw error;
+    }
   };
   return {
     async get(key) {
@@ -68,8 +76,10 @@ export function createLocalPreviewBucket(directory = resolve('.sites-runtime')) 
   };
 }
 
-export function localSettingsPreview() {
-  const bucket = createLocalPreviewBucket();
+export function localSettingsPreview({ initialSettings } = {}) {
+  // A fresh checkout starts with the published appearance. Explicit local
+  // edits still take precedence and stay independent of production storage.
+  const bucket = createLocalPreviewBucket(undefined, { initialSettings });
   return {
     name: 'local-shared-scene-preview',
     configureServer(server) {

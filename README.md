@@ -20,6 +20,8 @@ pnpm preview
 
 The preload screen waits for fonts, scanned models, textures and shader preparation for both scenes. Desktop and mobile layouts use Instrument Serif and Manrope. Scene controls are preserved in the source and hidden until requested again.
 
+Local preview starts with the same published scene preset as Vercel. Explicit local edits persist separately under ignored .sites-runtime/ and never replace the production preset.
+
 ## Vercel
 
 Import this repository into Vercel using the Vite framework. The build output is dist/client; the root api/ directory provides Node.js functions.
