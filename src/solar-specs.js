@@ -44,6 +44,7 @@ export function createSolarSpecs(element, panel, camera) {
     }
     element.inert = !visible;
     element.style.opacity = visible ? '1' : '0';
+    return { visible, revealStart };
   }
   return { update };
 }

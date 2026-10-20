@@ -24,6 +24,7 @@ import { createGardenIntroArt } from './garden-intro-art.js';
 import { createGardenIntroReveal } from './garden-intro-reveal.js';
 import './mobile.css';
 import './garden-intro.css';
+import './solar-story.css';
 
 const canvas = document.querySelector('#scene');
 const preloader = createPreloader();
@@ -60,6 +61,7 @@ const ui = {
   hero: document.querySelector('.hero-copy'),
   gardenIntro: document.querySelector('.garden-intro-copy'),
   garden: document.querySelector('.garden-copy'),
+  solarStory: document.querySelector('.solar-story'),
   nav: [...document.querySelectorAll('.nav-link')],
 };
 const gardenIntroReveal = createGardenIntroReveal(ui.gardenIntro);
@@ -92,6 +94,7 @@ function fallback(message) {
   for (const element of [ui.hero, ui.gardenIntro, ui.garden]) { element.removeAttribute('style'); element.inert = false; }
   document.querySelector('.solar-specs').inert = false;
   document.querySelectorAll('.solar-spec-card').forEach(card => card.inert = false);
+  ui.solarStory.inert = false;
   canvas.style.display = 'none';
   document.body.classList.remove('garden-active');
   const syncStaticHeader = () => document.body.classList.toggle('hero-active', document.querySelector('#closing').getBoundingClientRect().top > 90);
@@ -326,7 +329,13 @@ async function init() {
     gardenIntroArt?.update(elapsed, !ui.gardenIntro.inert, media.matches || ambientPaused);
     const footerTop = document.querySelector('#closing').getBoundingClientRect().top;
     const cameraFinish = Math.max(sceneSettings.gardenCamera.moveStart, sceneSettings.gardenCamera.moveEnd) / 100;
-    solarSpecs.update(progress, innerWidth, innerHeight, progress >= .455 && footerTop > 90, cameraFinish);
+    const panelDetails = solarSpecs.update(progress, innerWidth, innerHeight, progress >= .455 && footerTop > 90, cameraFinish);
+    const identityReveal = panelDetails.visible ? range(panelDetails.revealStart, panelDetails.revealStart + .12, progress) : 0;
+    const descriptionReveal = panelDetails.visible ? range(panelDetails.revealStart + .055, panelDetails.revealStart + .20, progress) : 0;
+    ui.solarStory.style.setProperty('--solar-identity-reveal', identityReveal.toFixed(3));
+    ui.solarStory.style.setProperty('--solar-description-reveal', descriptionReveal.toFixed(3));
+    ui.solarStory.inert = identityReveal < .08;
+    document.body.classList.toggle('solar-details-active', identityReveal >= .08);
     document.body.classList.toggle('garden-active', progress > .455 && footerTop > 90);
     document.body.classList.toggle('hero-active', progress < .30);
     const nextControlsScene = progress >= .455 ? 'garden' : 'hero';

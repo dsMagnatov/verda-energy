@@ -15,6 +15,7 @@ const overlay = { style: {}, inert: true,
   querySelector: selector => cards[selector.match(/data-panel-anchor="(\w+)"/)[1]],
 };
 const specs = createSolarSpecs(overlay, garden.panel, camera);
+let lastSpecState;
 function frame(progress, preset = settings, time = 0, show = true, pointer = null, reducedMotion = false) {
   garden.setControls(preset);
   const pose = getPose(progress, false, preset.gardenCamera);
@@ -22,7 +23,12 @@ function frame(progress, preset = settings, time = 0, show = true, pointer = nul
   camera.fov = pose.landFov; camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
   garden.update(time, progress, reducedMotion, pointer);
   const cameraFinish = Math.max(preset.gardenCamera.moveStart, preset.gardenCamera.moveEnd) / 100;
-  specs.update(progress, 1280, 720, show, cameraFinish);
+  lastSpecState = specs.update(progress, 1280, 720, show, cameraFinish);
+  assert.equal(lastSpecState.revealStart, Math.max(garden.panelRig.userData.descentRange[1], cameraFinish) + .04,
+    'Product copy shares the actual editable card timing');
+  assert.equal(lastSpecState.visible, !overlay.inert, 'Returned visibility agrees with the accessible card overlay');
+  assert.equal(lastSpecState.visible, Object.values(cards).some(card => !card.inert),
+    'Product copy cannot appear unless at least one real panel card is visible');
   for (const card of Object.values(cards)) {
     assert(Number.isFinite(parseFloat(card.style.left)) && Number.isFinite(parseFloat(card.style.top)));
   }
@@ -31,6 +37,7 @@ function frame(progress, preset = settings, time = 0, show = true, pointer = nul
 const hidden = [0, 0, 0], shown = [1, 1, 1];
 for (const progress of [.52, .70, .84, .88, .90, .92]) {
   assert.deepEqual(frame(progress), hidden, 'No card appears during descent, camera retreat, or the following pause');
+  assert.equal(lastSpecState.visible, false, 'Final product copy stays hidden throughout the earlier garden stages');
 }
 assert.deepEqual(frame(.92, settings, 120), hidden, 'Waiting without further scrolling cannot reveal cards');
 const beginning = frame(.94);
@@ -44,18 +51,26 @@ for (let index = 0; index <= 20; index++) {
   assert.deepEqual(garden.panelRig.position.toArray(), readyPanel, 'The panel stays settled while cards reveal');
   assert.deepEqual(getPose(progress).landPosition.toArray(), readyPose.landPosition.toArray(), 'The camera stays settled');
   if (snapshots.length) values.forEach((value, i) => assert(value >= snapshots.at(-1).values[i]));
-  snapshots.push({ progress, values });
+  snapshots.push({ progress, values, state: { ...lastSpecState } });
 }
 assert.deepEqual(frame(JOURNEY_SCROLL_END), shown);
-for (const { progress, values } of snapshots.reverse()) assert.deepEqual(frame(progress, settings, 500), values, 'Reverse scrolling retraces the same card visibility');
+assert.equal(lastSpecState.visible, true, 'The final product narrative can appear with the panel cards');
+for (const { progress, values, state } of snapshots.reverse()) {
+  assert.deepEqual(frame(progress, settings, 500), values, 'Reverse scrolling retraces the same card visibility');
+  assert.deepEqual(lastSpecState, state, 'Reverse scrolling retraces the same product narrative timing');
+}
 assert.deepEqual(frame(.90), hidden);
 
 const latest = structuredClone(settings);
 latest.gardenPanel.descentEnd = 100;
 latest.gardenCamera.moveEnd = 100;
 assert.deepEqual(frame(1.04, latest), hidden, 'A saved 100% finish still has a panel-only interval');
+assert.equal(lastSpecState.visible, false);
+assert.equal(lastSpecState.revealStart, 1.04, 'Product copy waits for the latest saved panel and camera finish');
 assert.deepEqual(frame(JOURNEY_SCROLL_END, latest), shown, 'The latest allowed panel and camera timing leaves enough scroll for all cards');
+assert.equal(lastSpecState.visible, true);
 assert.deepEqual(frame(JOURNEY_SCROLL_END, latest, 0, false), hidden, 'Cards hide over the closing section');
+assert.equal(lastSpecState.visible, false, 'Product copy also hides when the closing section covers the scene');
 
 // Cursor tilt changes the real module, its projected cards and reflected pose.
 const authored = structuredClone(settings);
@@ -81,4 +96,4 @@ assert(baseRotation.angleTo(garden.panelRig.quaternion)<1e-7,'Reduced motion kee
 frame(JOURNEY_SCROLL_END, authored);
 assert(baseRotation.angleTo(garden.panelRig.quaternion)<1e-7,'Leaving the scene restores the authored orientation');
 assert.deepEqual(settings,createDefaultSceneSettings(),'Pointer interaction never modifies saved settings');
-console.log(JSON.stringify({ ok: true, checks: ['no cards during panel/camera motion', 'scroll-only pause and staggered reveal', 'settled panel and camera', 'deterministic reverse scroll', '100% saved timing remains supported', 'closing visibility and finite projection', 'four-way cursor tilt and attached cards', 'authored transforms preserved', 'bounded non-accumulating tilt', 'neutral return and reduced motion'] }, null, 2));
+console.log(JSON.stringify({ ok: true, checks: ['no cards during panel/camera motion', 'scroll-only pause and staggered reveal', 'settled panel and camera', 'deterministic reverse scroll', 'shared product narrative timing and visibility', '100% saved timing remains supported', 'closing visibility and finite projection', 'four-way cursor tilt and attached cards', 'authored transforms preserved', 'bounded non-accumulating tilt', 'neutral return and reduced motion'] }, null, 2));
